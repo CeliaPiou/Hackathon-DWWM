@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './App.css';
+import './index.css'
 import Webcam from 'react-webcam';
 import { drawRect } from './utilities';
 
@@ -13,17 +14,20 @@ import { savePrediction } from './utils/storage';
 // Import de l'historique
 import History from './History';
 
+// Import des templates
+import Header from "./templates/Header";
+
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [lastSaveTime, setLastSaveTime] = useState(0); 
+  const [lastSaveTime, setLastSaveTime] = useState(0);
 
   const runCoco = async () => {
     console.log("Chargement du modèle COCO-SSD...");
     const net = await cocossd.load();
     setInterval(() => {
       detect(net);
-    }, 500); 
+    }, 500);
   };
 
   const detect = async (net) => {
@@ -47,7 +51,7 @@ function App() {
 
       if (obj.length > 0) {
         const now = Date.now();
-        if (now - lastSaveTime > 5000) { 
+        if (now - lastSaveTime > 5000) {
           const imageSrc = webcamRef.current.getScreenshot();
           const label = obj[0].class;
           const date = new Date().toLocaleString();
@@ -60,7 +64,7 @@ function App() {
 
           console.log("Prediction sauvegardée :", prediction);
           savePrediction(prediction);
-          setLastSaveTime(now); 
+          setLastSaveTime(now);
         }
       }
     }
@@ -79,6 +83,8 @@ function App() {
   }, []);
 
   return (
+    <>
+    <Header/>
     <div className="App">
       <header className="App-header" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
         <Webcam
@@ -97,7 +103,7 @@ function App() {
             width: 640,
             height: 480,
           }}
-        />
+          />
         <canvas
           ref={canvasRef}
           style={{
@@ -110,10 +116,11 @@ function App() {
             width: 640,
             height: 480,
           }}
-        />
+          />
       </header>
       <History />
-    </div>
+      </div>
+    </>
   );
 }
 
