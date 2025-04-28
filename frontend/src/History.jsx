@@ -1,12 +1,13 @@
 import React, { useState, useEffect} from "react";
 import { getPredictions, clearPredictions } from "./utils/storage";
 
+
 // import CSS
 import './index.css';
 
 
-function History() {
-    const [predictions, setPredictions] = useState([]);
+function History({ predictions, setPredictions }) {
+
 
     useEffect(() => {
         const storedPredictions = getPredictions();
@@ -14,11 +15,12 @@ function History() {
     }, []);
 
     const handleClearHistory = () => {
-        clearPredictions();
-        setPredictions([]);
+      clearPredictions();
+      setPredictions([]);
     };
 
     return (
+
         <div style={{ padding: "20px" , marginTop: "20px"}} className="text-white">
         <h2 className="text-white">Historique des Prédictions</h2>
 
@@ -40,9 +42,9 @@ function History() {
                   width: "200px",
                 }}
               >
-                {prediction.image && (
+                {prediction.imageSrc && (
                   <img
-                    src={prediction.image}
+                    src={prediction.imageSrc}
                     alt={prediction.label}
                     style={{ width: "100%", borderRadius: "8px" }}
                   />
