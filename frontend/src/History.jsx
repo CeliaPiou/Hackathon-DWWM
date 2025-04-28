@@ -1,7 +1,13 @@
 import React, { useState, useEffect} from "react";
 import { getPredictions, clearPredictions } from "./utils/storage";
 
+
+// import CSS
+import './index.css';
+
+
 function History({ predictions, setPredictions }) {
+
 
     useEffect(() => {
         const storedPredictions = getPredictions();
@@ -14,10 +20,11 @@ function History({ predictions, setPredictions }) {
     };
 
     return (
-        <div style={{ padding: "20px" , marginTop: "20px"}}>
-        <h2>Historique des Prédictions</h2>
 
-        <button onClick={handleClearHistory} style={{ marginBottom: "20px", marginTop: "20px" }}>
+        <div style={{ padding: "20px" , marginTop: "20px"}} className="text-white">
+        <h2 className="text-white">Historique des Prédictions</h2>
+
+        <button onClick={handleClearHistory} style={{ marginBottom: "20px", marginTop: "20px" }} className='text-white'>
           Vider l'historique
         </button>
 

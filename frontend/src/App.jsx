@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './App.css';
+import './index.css'
+
 import Webcam from 'react-webcam';
 import { drawRect } from './utilities';
 
