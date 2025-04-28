@@ -8,7 +8,7 @@ import * as tf from '@tensorflow/tfjs';
 import * as cocossd from '@tensorflow-models/coco-ssd';
 
 // Import de la gestion localStorage
-import { savePrediction } from './utils/storage';
+import { savePrediction, getPredictions } from './utils/storage';
 
 // Import de l'historique
 import History from './History';
@@ -81,6 +81,7 @@ function App() {
     } else {
       alert("Aucun objet détecté !");
     }
+    getPredictions()
     }
   
   };
