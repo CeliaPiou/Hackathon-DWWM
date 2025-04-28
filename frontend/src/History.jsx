@@ -2,7 +2,6 @@ import React, { useState, useEffect} from "react";
 import { getPredictions, clearPredictions } from "./utils/storage";
 
 function History({ predictions, setPredictions }) {
-    const [predictions, setPredictions] = useState([]);
 
     useEffect(() => {
         const storedPredictions = getPredictions();
