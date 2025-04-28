@@ -26,6 +26,13 @@ function App() {
     }, 500); 
   };
 
+  const capture = React.useCallback(
+    () => {
+      const imageSrc = webcamRef.current.getScreenshot();
+    },
+    [webcamRef]
+  );
+
   const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -112,6 +119,8 @@ function App() {
           }}
         />
       </header>
+         <button onClick={capture}>Capture photo</button>
+          
       <History />
     </div>
   );
