@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { getPredictions, clearPredictions } from "./utils/storage";
 
-function History() {
+function History({ predictions, setPredictions }) {
     const [predictions, setPredictions] = useState([]);
 
     useEffect(() => {
@@ -10,18 +10,18 @@ function History() {
     }, []);
 
     const handleClearHistory = () => {
-        clearPredictions();
-        setPredictions([]);
+      clearPredictions();
+      setPredictions([]);
     };
 
     return (
         <div style={{ padding: "20px" , marginTop: "20px"}}>
         <h2>Historique des Prédictions</h2>
-  
+
         <button onClick={handleClearHistory} style={{ marginBottom: "20px", marginTop: "20px" }}>
           Vider l'historique
         </button>
-  
+
         {predictions.length === 0 ? (
           <p>Aucune prédiction enregistrée pour l'instant.</p>
         ) : (
@@ -52,5 +52,5 @@ function History() {
       </div>
     );
   }
-  
+
   export default History;
