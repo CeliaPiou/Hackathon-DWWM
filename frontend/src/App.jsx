@@ -17,6 +17,13 @@ function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [net, setNet] = useState(null);
+  const [predictions, setPredictions] = useState([]);
+
+    // Charger les prédictions au démarrage
+    useEffect(() => {
+      const storedPredictions = getPredictions();
+      setPredictions(storedPredictions);
+    }, []);
 
   // Chargement du modèle COCO-SSD
   useEffect(() => {
@@ -62,7 +69,7 @@ function App() {
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4 && 
+      webcamRef.current.video.readyState === 4 &&
       net
     ) {
       const video = webcamRef.current.video;
@@ -78,12 +85,13 @@ function App() {
           imageSrc: imageSrc,
         };
         savePrediction(prediction);
-    } else {
+        setPredictions(prev => [...prev, prediction]);
+
+      } else {
       alert("Aucun objet détecté !");
     }
-    getPredictions()
     }
-  
+
   };
   return (
     <div className="App">
@@ -121,11 +129,10 @@ function App() {
       </header>
       <div>
         <button onClick={handleCapture} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "16px" }}>
-          Capturer un snapshot 
+          Capturer un snapshot
         </button>
       </div>
-      <History />
-    </div>
+      <History predictions={predictions} setPredictions={setPredictions} />    </div>
   );
 }
 
