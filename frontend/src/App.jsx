@@ -16,75 +16,74 @@ import History from './History';
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const [lastSaveTime, setLastSaveTime] = useState(0); 
+  const [net, setNet] = useState(null);
 
-  const runCoco = async () => {
-    console.log("Chargement du modèle COCO-SSD...");
-    const net = await cocossd.load();
-    setInterval(() => {
-      detect(net);
-    }, 500); 
-  };
+  // Chargement du modèle COCO-SSD
+  useEffect(() => {
+    const loadModel = async () => {
+      const model = await cocossd.load();
+      setNet(model);
+    };
+    loadModel();
+  }, []);
+  // Prise de photo et prédiction
+  useEffect(() => {
+    if (net) {
+      const interval = setInterval(() => {
+        detectAndDraw();
+      }, 500);
+      return () => clearInterval(interval);
+    }
+  }, [net]);
 
-  const capture = React.useCallback(
-    () => {
-      const imageSrc = webcamRef.current.getScreenshot();
-    },
-    [webcamRef]
-  );
-
-  const detect = async (net) => {
-    if (
+  const detectAndDraw = async () => {
+    if(
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null &&
       webcamRef.current.video.readyState === 4
-    ) {
+    ){
       const video = webcamRef.current.video;
       const videoWidth = webcamRef.current.video.videoWidth;
       const videoHeight = webcamRef.current.video.videoHeight;
 
-      webcamRef.current.width = videoWidth;
-      webcamRef.current.height = videoHeight;
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
       const obj = await net.detect(video);
       const ctx = canvasRef.current.getContext("2d");
+
       drawRect(obj, ctx);
-
-      if (obj.length > 0) {
-        const now = Date.now();
-        if (now - lastSaveTime > 5000) { 
-          const imageSrc = webcamRef.current.getScreenshot();
-          const label = obj[0].class;
-          const date = new Date().toLocaleString();
-
-          const prediction = {
-            image: imageSrc,
-            label: label,
-            date: date,
-          };
-
-          console.log("Prediction sauvegardée :", prediction);
-          savePrediction(prediction);
-          setLastSaveTime(now); 
-        }
-      }
     }
+}
+
+  const handleCapture = async () => {
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4 && 
+      net
+    ) {
+      const video = webcamRef.current.video;
+      const imageSrc = webcamRef.current.getScreenshot();
+      const obj = await net.detect(video);
+
+      if(obj.length > 0 && imageSrc){
+        const label = obj[0].class;
+        const date = new Date().toLocaleString();
+        const prediction = {
+          label: label,
+          date: date,
+          imageSrc: imageSrc,
+        };
+        savePrediction(prediction);
+    } else {
+      alert("Aucun objet détecté !");
+    }
+    }
+  
   };
-
-  useEffect(() => { runCoco(); }, []);
-
-  useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(() => {
-        console.log('Permission webcam accordée.');
-      })
-      .catch((err) => {
-        console.error('Erreur webcam :', err);
-      });
-  }, []);
-
   return (
     <div className="App">
       <header className="App-header" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
@@ -119,8 +118,11 @@ function App() {
           }}
         />
       </header>
-         <button onClick={capture}>Capture photo</button>
-          
+      <div>
+        <button onClick={handleCapture} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "16px" }}>
+          Capturer un snapshot 
+        </button>
+      </div>
       <History />
     </div>
   );
