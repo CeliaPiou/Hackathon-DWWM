@@ -7,7 +7,7 @@ function History() {
     useEffect(() => {
         const storedPredictions = getPredictions();
         setPredictions(storedPredictions);
-    }, []);
+    }, [getPredictions()]);
 
     const handleClearHistory = () => {
         clearPredictions();
