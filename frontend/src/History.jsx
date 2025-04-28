@@ -36,9 +36,9 @@ function History() {
                   width: "200px",
                 }}
               >
-                {prediction.image && (
+                {prediction.imageSrc && (
                   <img
-                    src={prediction.image}
+                    src={prediction.imageSrc}
                     alt={prediction.label}
                     style={{ width: "100%", borderRadius: "8px" }}
                   />
