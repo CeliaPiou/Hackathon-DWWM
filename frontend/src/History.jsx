@@ -1,6 +1,10 @@
 import React, { useState, useEffect} from "react";
 import { getPredictions, clearPredictions } from "./utils/storage";
 
+// import CSS
+import './index.css';
+
+
 function History() {
     const [predictions, setPredictions] = useState([]);
 
@@ -15,13 +19,13 @@ function History() {
     };
 
     return (
-        <div style={{ padding: "20px" , marginTop: "20px"}}>
-        <h2>Historique des Prédictions</h2>
-  
-        <button onClick={handleClearHistory} style={{ marginBottom: "20px", marginTop: "20px" }}>
+        <div style={{ padding: "20px" , marginTop: "20px"}} className="text-white">
+        <h2 className="text-white">Historique des Prédictions</h2>
+
+        <button onClick={handleClearHistory} style={{ marginBottom: "20px", marginTop: "20px" }} className='text-white'>
           Vider l'historique
         </button>
-  
+
         {predictions.length === 0 ? (
           <p>Aucune prédiction enregistrée pour l'instant.</p>
         ) : (
@@ -52,5 +56,5 @@ function History() {
       </div>
     );
   }
-  
+
   export default History;

@@ -86,7 +86,7 @@ function App() {
     <>
     <Header/>
     <div className="App">
-      <header className="App-header" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
+      <main className="App-header" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
         <Webcam
           ref={webcamRef}
           muted={true}
@@ -117,7 +117,7 @@ function App() {
             height: 480,
           }}
           />
-      </header>
+      </main>
       <History />
       </div>
     </>

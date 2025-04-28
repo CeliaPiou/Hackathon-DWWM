@@ -9,7 +9,7 @@ function Header() {
 const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <nav className='bg-indigo-950'>
+      <nav className=''>
           <div className='h-16 items-center flex justify-between'>
               {/* Logo */}
             <div className='text-3x1 text-white font-bold px-4'> Logo </div>
