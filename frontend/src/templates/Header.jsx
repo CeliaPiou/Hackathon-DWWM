@@ -1,17 +1,29 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import React from 'react'
 import '../index.css'
 import { CiMenuBurger } from "react-icons/ci";
+import Apropos from '../Apropos';
 
 
 function Header() {
 
 const [isOpen, setIsOpen] = useState(false);
 
+// Gérer l'ouverture du 'A propos'
+  const [about, setAbout] = useState(false);
+
+  const handleApropos = () => {
+    setAbout(!about)
+    console.log(about)
+  };
+
     return (
+    <>
+      <Apropos about={about} setAbout={setAbout}/>
+
       <nav className='mb-15'>
           <div className='h-16 items-center flex justify-between'>
-              {/* Logo */}
+{/* Logo */}
             <div className='text-3x1 text-white font-bold px-4'> <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="70.000000pt" height="80.000000pt" viewBox="0 0 363.000000 378.000000"
  preserveAspectRatio="xMidYMid meet">
@@ -90,15 +102,16 @@ c-67 -38 -87 -68 -79 -115 28 -147 473 -208 697 -95 124 63 131 144 16 210
 </svg> </div>
               {/* buttons desktop */}
 
-            <div className='hidden sm:block'>
-              <a href='' className='text-gray-100 text-lg px-4'> À PROPOS</a>
 
+            <div className='hidden sm:block'>
+              <button onClick={handleApropos} className='text-gray-100 text-lg px-4'> À PROPOS</button>          
+  
               <a href='mailto:camyni@yopmail.com'className='text-gray-100 text-lg px-4'> CONTACTER</a>
             </div>
           </div>
           <button onClick={() => setIsOpen(!isOpen)} className='block sm:hidden px-4 text-3xl text-white'>
           <CiMenuBurger />
-         </button>
+          </button>
               {/* buttons mobile */}
           <div className={`${
             isOpen ? "block" : "hidden"
@@ -108,6 +121,7 @@ c-67 -38 -87 -68 -79 -115 28 -147 473 -208 697 -95 124 63 131 144 16 210
               <a href='mailto:camyni@yopmail.com'className='text-gray-600 text-lg px-4 block'> CONTACTER</a>
             </div>
       </nav>
+      </>
     )
 }
 
