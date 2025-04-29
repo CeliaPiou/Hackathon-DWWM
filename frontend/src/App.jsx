@@ -105,43 +105,23 @@ function App() {
 
       <Header/>
 
-      <section className="border-5 border-solid border-slate-800 rounded-lg hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-fuchsia-700 transition duration-800"
-      style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
+    <section
+  className="relative border-5 border-solid border-slate-800 rounded-lg hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-fuchsia-700 transition duration-800 w-full lg:w-[70%] mx-auto aspect-[4/3]"
+>
+  <div className="absolute top-0 left-0 w-full h-full">
+    <Webcam
+      ref={webcamRef}
+      muted={true}
+      screenshotFormat="image/jpeg"
+      className="w-full h-full object-cover rounded-lg z-8"
+    />
+    <canvas
+      ref={canvasRef}
+      className="absolute top-0 left-0 w-full h-full z-9"
+    />
+  </div>
+</section>
 
-        <Webcam
-          ref={webcamRef}
-          muted={true}
-          screenshotFormat="image/jpeg"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            margin: "auto",
-            textAlign: "center",
-            zIndex: 8,
-            width: 640,
-            height: 480,
-            borderRadius: "10px"
-
-          }}
-        />
-        <canvas
-          ref={canvasRef}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            margin: "auto",
-            textAlign: "center",
-            zIndex: 9,
-            width: 640,
-            height: 480,
-          }}
-        />
-
-      </section>
       <div className='p-5'>
 
           <button onClick={handleCapture} className='px-7 py-4 bg-purple-800 rounded-lg leading-none border-2 border-solid border-slate-900 text-white hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-fuchsia-700 transition duration-800'>
