@@ -16,17 +16,20 @@ import { savePrediction, getPredictions } from './utils/storage';
 import History from './History';
 import Header from './templates/Header';
 
+
+
 function App() {
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [net, setNet] = useState(null);
   const [predictions, setPredictions] = useState([]);
 
-    // Charger les prédictions au démarrage
-    useEffect(() => {
-      const storedPredictions = getPredictions();
-      setPredictions(storedPredictions);
-    }, []);
+  // Charger les prédictions au démarrage
+  useEffect(() => {
+    const storedPredictions = getPredictions();
+    setPredictions(storedPredictions);
+  }, []);
 
   // Chargement du modèle COCO-SSD
   useEffect(() => {
@@ -36,6 +39,7 @@ function App() {
     };
     loadModel();
   }, []);
+
   // Prise de photo et prédiction
   useEffect(() => {
     if (net) {
@@ -67,7 +71,6 @@ function App() {
       drawRect(obj, ctx);
     }
 }
-
   const handleCapture = async () => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -97,8 +100,11 @@ function App() {
 
   };
   return (
+
     <div className="App">
+
       <Header/>
+
     <section
   className="relative border-5 border-solid border-slate-800 rounded-lg hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-fuchsia-700 transition duration-800 w-full lg:w-[70%] mx-auto aspect-[4/3]"
 >
@@ -115,6 +121,7 @@ function App() {
     />
   </div>
 </section>
+
       <div className='p-5'>
 
           <button onClick={handleCapture} className='px-7 py-4 bg-purple-800 rounded-lg leading-none border-2 border-solid border-slate-900 text-white hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-fuchsia-700 transition duration-800'>
@@ -122,7 +129,9 @@ function App() {
           </button>
 
       </div>
-      <History predictions={predictions} setPredictions={setPredictions} />    </div>
+
+      <History predictions={predictions} setPredictions={setPredictions} />
+    </div>
   );
 }
 
