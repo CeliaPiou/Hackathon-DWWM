@@ -16,17 +16,20 @@ import { savePrediction, getPredictions } from './utils/storage';
 import History from './History';
 import Header from './templates/Header';
 
+
+
 function App() {
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [net, setNet] = useState(null);
   const [predictions, setPredictions] = useState([]);
 
-    // Charger les prédictions au démarrage
-    useEffect(() => {
-      const storedPredictions = getPredictions();
-      setPredictions(storedPredictions);
-    }, []);
+  // Charger les prédictions au démarrage
+  useEffect(() => {
+    const storedPredictions = getPredictions();
+    setPredictions(storedPredictions);
+  }, []);
 
   // Chargement du modèle COCO-SSD
   useEffect(() => {
@@ -36,6 +39,7 @@ function App() {
     };
     loadModel();
   }, []);
+
   // Prise de photo et prédiction
   useEffect(() => {
     if (net) {
@@ -67,7 +71,6 @@ function App() {
       drawRect(obj, ctx);
     }
 }
-
   const handleCapture = async () => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -97,9 +100,13 @@ function App() {
 
   };
   return (
+
     <div className="App">
+
       <Header/>
+
       <main className="border-5 border-solid border-purple-800 rounded-lg" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
+
         <Webcam
           ref={webcamRef}
           muted={true}
@@ -133,14 +140,17 @@ function App() {
           }}
         />
       </main>
+
       <div className='p-5'>
 
-          <button onClick={handleCapture} className='px-7 py-4 bg-slate-950 rounded-lg leading-none border-2 border-solid border-slate-900 text-white hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-violet-950 transition duration-800'>
-          Capture
-          </button>
+        <button onClick={handleCapture} className='px-7 py-4 bg-slate-950 rounded-lg leading-none border-2 border-solid border-slate-900 text-white hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-violet-950 transition duration-800'>
+        Capture
+        </button>
 
       </div>
-      <History predictions={predictions} setPredictions={setPredictions} />    </div>
+
+      <History predictions={predictions} setPredictions={setPredictions} />
+    </div>
   );
 }
 
