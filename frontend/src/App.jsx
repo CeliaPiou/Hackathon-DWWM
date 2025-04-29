@@ -14,6 +14,7 @@ import { savePrediction, getPredictions } from './utils/storage';
 
 // Import de l'historique
 import History from './History';
+import Header from './templates/Header';
 
 function App() {
   const webcamRef = useRef(null);
@@ -97,7 +98,8 @@ function App() {
   };
   return (
     <div className="App">
-      <header className="App-header" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
+      <Header/>
+      <main className="border-5 border-solid border-purple-800 rounded-lg" style={{ position: 'relative', width: "640px", height: "480px", margin: "auto" }}>
         <Webcam
           ref={webcamRef}
           muted={true}
@@ -113,6 +115,8 @@ function App() {
             zIndex: 8,
             width: 640,
             height: 480,
+            borderRadius: "10px"
+
           }}
         />
         <canvas
@@ -128,11 +132,13 @@ function App() {
             height: 480,
           }}
         />
-      </header>
-      <div>
-        <button onClick={handleCapture} style={{ marginTop: "20px", padding: "10px 20px", fontSize: "16px" }}>
-          Capturer un snapshot
-        </button>
+      </main>
+      <div className='p-5'>
+
+          <button onClick={handleCapture} className='px-7 py-4 bg-slate-950 rounded-lg leading-none border-2 border-solid border-slate-900 text-white hover:shadow-[0px_0px_15px_3px_rgba(76,_29,_149,_0.70)] bg-slate-950 hover:border-violet-950 transition duration-800'>
+          Capture
+          </button>
+
       </div>
       <History predictions={predictions} setPredictions={setPredictions} />    </div>
   );
