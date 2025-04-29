@@ -96,13 +96,13 @@ c-67 -38 -87 -68 -79 -115 28 -147 473 -208 697 -95 124 63 131 144 16 210
               <a href='mailto:camyni@yopmail.com'className='text-gray-100 text-lg px-4'> CONTACTER</a>
             </div>
           </div>
-          <button onClick={() => setIsOpen(!isOpen)} className='block sm:hidden px-4 text-3xl text-white'>
+          <button onClick={() => setIsOpen(!isOpen)} className='block sm:hidden px-4 text-3xl text-white justify-self-end'>
           <CiMenuBurger />
          </button>
               {/* buttons mobile */}
           <div className={`${
             isOpen ? "block" : "hidden"
-            } block sm:hidden bg-gray-100 space-y-2 pb-3`}>
+            } block sm:hidden bg-gray-100 space-y-2 pb-3 `}>
               <a href='' className='text-gray-600 text-lg px-4 block'> À PROPOS</a>
 
               <a href='mailto:camyni@yopmail.com'className='text-gray-600 text-lg px-4 block'> CONTACTER</a>
